@@ -12,8 +12,8 @@ import java.util.Map;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class MatchResult {
   @Getter(AccessLevel.PROTECTED)
-  private String text;
+  private String query;
 
   @Getter(AccessLevel.PROTECTED)
-  private Map<Integer, List<Integer>> results;
+  private Map<Integer, List<Integer>> indexToIndices;
 }

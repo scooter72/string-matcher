@@ -5,6 +5,7 @@ import task.input.TaskInput;
 import task.output.Output;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -34,7 +35,7 @@ public class Orchestrator {
     Map<Integer, String> lines = input.getInput();
     ExecutorService executor = Executors.newFixedThreadPool(numberOfThreads);
     LinkedList<TaskInput> tasksQueue = new LinkedList<>();
-    Map<String, Map<Integer, List<Integer>>> matchResults = new HashMap<>();
+    Map<String, Map<Integer, List<Integer>>> matchResults = new ConcurrentHashMap<>();
 
     queries.forEach(query -> {
       // init map query entry to empty match results

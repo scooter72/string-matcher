@@ -12,9 +12,14 @@ import java.util.Map;
  */
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class Output {
-  @Getter(AccessLevel.PUBLIC)
-  Map<String, Map<Integer, List<Integer>>> matchResults;
 
-  @Getter(AccessLevel.PROTECTED)
-  long duration;
+  /**
+   * Each entry in this map is a query mapped to its line index to indices of the query in that line.
+   */
+  @Getter(AccessLevel.PUBLIC) Map<String, Map<Integer, List<Integer>>> matchResults;
+
+  /**
+   * The process duration.
+   */
+  @Getter(AccessLevel.PROTECTED) long duration;
 }

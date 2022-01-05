@@ -33,7 +33,7 @@ public class MatchResultsProcessor {
     matchResults.forEach((name, indices) -> results.add(new MatchResult(name, indices)));
 
     return results.stream()
-        .sorted((x, y) -> Integer.compare(y.getResults().size(), x.getResults().size()))
+        .sorted((x, y) -> Integer.compare(y.getIndexToIndices().size(), x.getIndexToIndices().size()))
         .collect(Collectors.toList());
   }
 
@@ -47,7 +47,7 @@ public class MatchResultsProcessor {
     System.out.format("+-----------------+--------+%n");
     System.out.format("| Name            | Result |%n");
     System.out.format("+-----------------+--------+%n");
-    sortedResults.forEach(entry -> System.out.format(leftAlignFormat, entry.getText(), entry.getResults().size()));
+    sortedResults.forEach(entry -> System.out.format(leftAlignFormat, entry.getQuery(), entry.getIndexToIndices().size()));
     System.out.format("+-----------------+--------+%n");
     System.out.println();
   }
@@ -56,8 +56,8 @@ public class MatchResultsProcessor {
     StringBuilder builder = new StringBuilder();
     sortedResults.forEach(entry -> {
       builder.delete(0, builder.length());
-      builder.append(entry.getText()).append("--> (").append(entry.getResults().size()).append(" results) --> ");
-      entry.getResults().forEach(
+      builder.append(entry.getQuery()).append("--> (").append(entry.getIndexToIndices().size()).append(" results) --> ");
+      entry.getIndexToIndices().forEach(
           (line, indices) ->  builder
               .append("[line=")
               .append(line)
