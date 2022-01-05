@@ -72,16 +72,20 @@ class OrchestratorTest {
     Orchestrator orchestrator = new Orchestrator(1);
     Map<Integer, String> input = new HashMap<>();
     Set<String> queries = new HashSet<>();
+    int line = 0;
+    String query = "dog";
+    int firstIndices = 4;
+    int secondIndices = 44;
 
-    input.put(0, "The dog quick brown fox jumps over the lazy dog");
-    queries.add("dog");
+    input.put(line, "The dog quick brown fox jumps over the lazy dog");
+    queries.add(query);
 
     Output output = orchestrator.run(new Input(input, queries));
-    List<Integer> queryIndicesInFirstLine = output.getMatchResults().get("dog").get(/* line */ 0);
+    List<Integer> queryIndicesLine = output.getMatchResults().get(query).get(line);
 
-    // 2 matches are expected in the single line
-    assertEquals(2, queryIndicesInFirstLine.size());
-    assertEquals(4, queryIndicesInFirstLine.get(/* indices */ 0));
-    assertEquals(44, queryIndicesInFirstLine.get(/* indices */ 1));
+    // 2 matches are expected in a single line
+    assertEquals(2, queryIndicesLine.size());
+    assertEquals(firstIndices, queryIndicesLine.get(/* indices */ 0));
+    assertEquals(secondIndices, queryIndicesLine.get(/* indices */ 1));
   }
 }
