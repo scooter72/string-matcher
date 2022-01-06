@@ -39,7 +39,7 @@ public class Orchestrator {
     Map<String, Map<Integer, List<Integer>>> matchResults = new ConcurrentHashMap<>();
 
     queries.forEach(query -> {
-      // init map query entry to empty match results
+      // init map query entry to an empty match results
       matchResults.put(query, new HashMap<>());
 
       // build a task queue
