@@ -6,6 +6,7 @@ import task.output.Output;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -34,7 +35,7 @@ public class Orchestrator {
     Set<String> queries = input.getQueries();
     Map<Integer, String> lines = input.getInput();
     ExecutorService executor = Executors.newFixedThreadPool(numberOfThreads);
-    LinkedList<TaskInput> tasksQueue = new LinkedList<>();
+    ConcurrentLinkedQueue<TaskInput> tasksQueue = new ConcurrentLinkedQueue<>();
     Map<String, Map<Integer, List<Integer>>> matchResults = new ConcurrentHashMap<>();
 
     queries.forEach(query -> {
@@ -56,9 +57,7 @@ public class Orchestrator {
 
         // Eagerly poll tasks from the queue
         while (tasksQueue.peek() != null) {
-          synchronized (tasksQueue) {
             taskInput = tasksQueue.poll();
-          }
 
           if (taskInput != null) {
             TaskResult taskResult = matcher.findMatches(taskInput);
